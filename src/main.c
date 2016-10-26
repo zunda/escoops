@@ -20,6 +20,8 @@ the Free Software Foundation, either version 3 of the License, or
 
 #include <signal.h>
 
+#define XI_RAWKEY_DETAIL_ESC 9
+
 int continuing;
 void sigint_handler(int signum);
 
@@ -32,8 +34,7 @@ sigint_handler(int signum)
 int
 main(int argc, char *argv[])
 {
-	Display *display;
-	display = XOpenDisplay(NULL);
+	Display *display = XOpenDisplay(NULL);
 	if (!display)
 		{
 			perror("XOpenDisplay");
@@ -62,8 +63,16 @@ main(int argc, char *argv[])
 		{
 			cookie = (XGenericEventCookie*) &ev.xcookie;
 			XNextEvent(display, (XEvent*) &ev);
+			if (XGetEventData(display, cookie) &&
+				cookie->type == GenericEvent &&
+				cookie->evtype == XI_RawKeyPress)
+				{
+					if (((XIRawEvent *) cookie->data)->detail == XI_RAWKEY_DETAIL_ESC)
+						{
+							fputc('.', stderr);
+						}
+				}
 			XFreeEventData(display, cookie);
-			fputc('.', stderr);
 		}
 
 	XDestroyWindow(display, win);
