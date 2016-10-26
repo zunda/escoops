@@ -1,8 +1,7 @@
 *.swp
 *.o
 *.deps/
-src/sleepy-screen
-src/sleepy-dbus-gen.[ch]
+src/escoops
 Makefile
 Makefile.in
 autom4te.cache
