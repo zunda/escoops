@@ -1,5 +1,6 @@
 /* escoops - run a command when ESC key is hit */
 /* vim: set ts=2 sw=2 noet: */
+/* usage: escoops 'tw --yes Oops I touched ESC key!' */
 /*
 
 Copyright (C) 2016 zunda <zundan@gmail.com>
@@ -69,7 +70,14 @@ main(int argc, char *argv[])
 				{
 					if (((XIRawEvent *) cookie->data)->detail == XI_RAWKEY_DETAIL_ESC)
 						{
-							fputc('.', stderr);
+							if (argc < 2)
+								{
+									fputc('!', stderr);
+								}
+							else
+								{
+									continuing = !system(argv[1]);
+								}
 						}
 				}
 			XFreeEventData(display, cookie);
