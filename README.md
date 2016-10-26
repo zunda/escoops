@@ -6,6 +6,10 @@ Run a command when ESC key is hit
 Usage
 -----
 
+```
+$ escoops 'tw --yes Oops I touched ESC key!'
+```
+
 Installation
 ------------
 Programmed and tested on Ubuntu 16.04 and xfce.
@@ -20,7 +24,6 @@ $ make
 Packages you may need to install to build this program:
 - build-essential
 - autoconf
-- libglib2.0-dev
 - libxext-dev
 - libxi-dev
 
