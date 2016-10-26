@@ -1,0 +1,11 @@
+*.swp
+*.o
+*.deps/
+src/sleepy-screen
+src/sleepy-dbus-gen.[ch]
+Makefile
+Makefile.in
+autom4te.cache
+config.*
+configure
+stamp-h1
