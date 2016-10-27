@@ -66,18 +66,17 @@ main(int argc, char *argv[])
 			XNextEvent(display, (XEvent*) &ev);
 			if (XGetEventData(display, cookie) &&
 				cookie->type == GenericEvent &&
-				cookie->evtype == XI_RawKeyPress)
+				cookie->evtype == XI_RawKeyPress &&
+				((XIRawEvent *) cookie->data)->detail == XI_RAWKEY_DETAIL_ESC)
 				{
-					if (((XIRawEvent *) cookie->data)->detail == XI_RAWKEY_DETAIL_ESC)
+					if (argc > 1)
 						{
-							if (argc < 2)
-								{
-									fputc('!', stderr);
-								}
-							else
-								{
-									continuing = !system(argv[1]);
-								}
+							int r = system(argv[1]);
+							if (r != 0) continuing = 0;
+						}
+					else
+						{
+							fputc('!', stderr);
 						}
 				}
 			XFreeEventData(display, cookie);
