@@ -58,11 +58,10 @@ main(int argc, char *argv[])
 	continuing = 1;
 	signal(SIGINT, sigint_handler);
 
-	XEvent ev;
-	XGenericEventCookie *cookie;
 	while(continuing)
 		{
-			cookie = (XGenericEventCookie*) &ev.xcookie;
+			XEvent ev;
+			XGenericEventCookie *cookie = (XGenericEventCookie*) &ev.xcookie;
 			XNextEvent(display, (XEvent*) &ev);
 			if (XGetEventData(display, cookie) &&
 				cookie->type == GenericEvent &&
