@@ -7,7 +7,13 @@ Usage
 -----
 
 ```
-$ escoops 'tw --yes Oops I touched ESC key!'
+$ escoops 'echo Oops I touched ESC key!'
+```
+
+To tweet when ESC is hit, it is possible to use a command line client like [Tw](http://shokai.github.io/tw/):
+
+```
+$ escoops 'tw --yes Oops I touched ESC key at `date +%H:%M`!'
 ```
 
 Installation
