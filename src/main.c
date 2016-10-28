@@ -38,7 +38,10 @@ main(int argc, char *argv[])
 	Display *display = XOpenDisplay(NULL);
 	if (!display)
 		{
-			perror("XOpenDisplay");
+			char *envvar = getenv("DISPLAY");
+			if (!envvar) envvar = "(not set)";
+			if (envvar && envvar[0] == '\0') envvar = "''";
+			fprintf(stderr, "Failed to open X11 display with DISPLAY: %s\n", envvar);
 			return EXIT_FAILURE;
 		}
 
