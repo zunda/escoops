@@ -22,6 +22,7 @@ the Free Software Foundation, either version 3 of the License, or
 #include <signal.h>
 
 #define XI_RAWKEY_DETAIL_ESC 9
+#define CMDNAME "escoops"
 
 int continuing;
 void sigint_handler(int signum);
@@ -41,7 +42,7 @@ main(int argc, char *argv[])
 			char *envvar = getenv("DISPLAY");
 			if (!envvar) envvar = "(not set)";
 			if (envvar && envvar[0] == '\0') envvar = "''";
-			fprintf(stderr, "Failed to open X11 display with DISPLAY: %s\n", envvar);
+			fprintf(stderr, CMDNAME ": Failed to open X11 display with DISPLAY: %s\n", envvar);
 			return EXIT_FAILURE;
 		}
 
@@ -74,7 +75,11 @@ main(int argc, char *argv[])
 					if (argc > 1)
 						{
 							int r = system(argv[1]);
-							if (r != 0) continuing = 0;
+							if (r != 0)
+								{
+									fputs(CMDNAME ": command exited unsuccessfully. Stopping.\n", stderr);
+									continuing = 0;
+								}
 						}
 					else
 						{
