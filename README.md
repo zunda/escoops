@@ -32,6 +32,7 @@ Packages you may need to install to build this program:
 - autoconf
 - libxext-dev
 - libxi-dev
+- libglib2.0-dev
 
 License
 -------
